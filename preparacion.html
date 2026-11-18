@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Prepara tu equipo · Programar en 2027</title>
+  <link rel="stylesheet" href="assets/edusdk-design-system/tokens/tokens.css">
+  <link rel="stylesheet" href="assets/edusdk-design-system/tokens/semantic-tokens.css">
+  <link rel="stylesheet" href="assets/edusdk-design-system/components/components.css">
+  <link rel="stylesheet" href="assets/css/portada-piloto.css">
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body.preparation-page {
+      margin: 0;
+      background: var(--cf-color-background);
+      color: var(--cf-color-text);
+      font-family: var(--cf-font-body);
+      overflow: hidden;
+    }
+
+    .preparation-shell {
+      box-sizing: border-box;
+      display: grid;
+      gap: clamp(8px, 1vw, 14px);
+      grid-template-areas:
+        "cabecera"
+        "centro"
+        "pie";
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      height: 100dvh;
+      max-width: none;
+      min-height: 0;
+      overflow: hidden;
+      padding: clamp(10px, 1.4vw, 20px);
+      width: 100%;
+    }
+
+    @media (min-width: 901px) {
+      .preparation-shell {
+        padding-top: 8px;
+      }
+    }
+
+    .preparation-shell > .cf-topbar--course {
+      grid-area: cabecera;
+      position: relative;
+      top: auto;
+    }
+
+    .preparation-shell .brand {
+      align-items: center;
+      color: inherit;
+      display: flex;
+      gap: var(--cf-space-2);
+      min-width: 0;
+      text-decoration: none;
+    }
+
+    .preparation-workspace {
+      display: grid;
+      grid-area: centro;
+      grid-template-areas: "contenido";
+      grid-template-rows: minmax(0, 1fr);
+      margin: 0;
+      min-height: 0;
+      min-width: 0;
+    }
+
+    .preparation-scroll {
+      align-content: center;
+      display: grid;
+      grid-area: contenido;
+      min-height: 0;
+      min-width: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 3px;
+    }
+
+    .preparation-content {
+      background: linear-gradient(135deg, var(--cf-color-surface), var(--cf-color-surface-muted));
+      border: 1px solid var(--cf-color-border);
+      border-radius: var(--cf-radius-lg);
+      box-shadow: 0 16px 40px rgba(0, 8, 20, .18);
+      box-sizing: border-box;
+      margin-inline: auto;
+      max-width: 1440px;
+      min-width: 0;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+      padding: clamp(16px, 1.6vw, 24px);
+      position: relative;
+      width: 100%;
+    }
+
+    .preparation-content > :not(.cf-center-hero__pattern) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .preparation-content .portal-hero__pattern {
+      height: 300px;
+      mask-image: linear-gradient(to bottom, #000 70%, transparent);
+      mix-blend-mode: screen;
+      opacity: .1;
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+    }
+
+    .preparation-content p {
+      line-height: 1.6;
+      margin: 0 auto 14px;
+      max-width: 78ch;
+    }
+
+    .download-grid {
+      display: grid;
+      gap: clamp(12px, 1vw, 16px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .download-card {
+      align-self: center;
+      align-items: center;
+      border: 1px solid;
+      border-radius: var(--cf-radius-lg);
+      box-shadow: 0 12px 34px rgba(0, 13, 28, .2);
+      box-sizing: border-box;
+      color: #f2f7fb;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 44px minmax(0, 1fr);
+      min-height: 94px;
+      padding: 12px 16px;
+      text-decoration: none;
+      transition: border-color 160ms ease, transform 160ms ease;
+    }
+
+    .download-card:hover {
+      border-color: #f2f7fb;
+      transform: translateY(-2px);
+    }
+
+    .download-card:focus-visible {
+      outline: 3px solid var(--cf-color-focus);
+      outline-offset: 4px;
+    }
+
+    .download-card--windows {
+      background: linear-gradient(145deg, #21bb64, #008568 68%, #005e60);
+      border-color: #50e87b;
+    }
+
+    .download-card--ubuntu {
+      background: linear-gradient(145deg, #087ec7, #174dab 55%, #14317d);
+      border-color: #42b5fd;
+    }
+
+    .download-card--macos {
+      background: linear-gradient(145deg, #8b39dd, #6540b7 58%, #47358d);
+      border-color: #bd6bff;
+    }
+
+    .download-card--guide {
+      background: linear-gradient(145deg, #03a6b8, #087e9a 56%, #075b74);
+      border-color: #22d6d5;
+    }
+
+    .download-card__icon {
+      align-items: center;
+      background: rgba(255, 255, 255, .16);
+      border: 1px solid rgba(255, 255, 255, .32);
+      border-radius: 14px;
+      color: #fff;
+      display: flex;
+      height: 44px;
+      justify-content: center;
+      width: 44px;
+    }
+
+    .download-card__icon svg,
+    .download-card__icon img {
+      height: 36px;
+      width: 36px;
+    }
+
+    .download-card__icon svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+
+    .download-card__icon--macos {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .download-card__copy {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .download-card__title {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .download-card__description {
+      color: rgba(255, 255, 255, .9);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .preparation-shell > .corp-band {
+      grid-area: pie;
+      margin: 0;
+    }
+
+    @media (max-width: 720px) {
+      html {
+        height: 100%;
+        min-height: 0;
+      }
+
+      body.preparation-page {
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .preparation-shell {
+        gap: 8px;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        height: 100dvh;
+        min-height: 0;
+        overflow: hidden;
+        padding: clamp(10px, 1.4vw, 20px);
+      }
+
+      .preparation-workspace {
+        grid-template-rows: minmax(0, 1fr);
+      }
+
+      .preparation-scroll {
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .preparation-content {
+        padding: 20px 16px;
+      }
+
+      .download-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+    }
+  </style>
+</head>
+<body class="preparation-page">
+  <main class="shell preparation-shell">
+    <header class="cf-topbar cf-topbar--course">
+      <img class="course-header__pattern" src="assets/edusdk-design-system/fuentes/tramas/Trama_CFab.png" alt="" aria-hidden="true">
+      <a class="brand" href="inicio.html" aria-label="Inicio del curso">
+        <img src="assets/branding/logo-circular-fab.png" alt="Circular FAB">
+        <h1>Programar en <span class="brand-year">2027</span></h1>
+      </a>
+      <nav class="cf-nav cf-nav--horizontal" aria-label="Navegación del curso">
+        <a class="cf-nav__link" href="inicio.html">Inicio</a>
+        <a class="cf-nav__link" href="lab-python-en-accion/index.html">Laboratorio</a>
+      </nav>
+      <p class="course-header__purpose">Aprender haciendo + IA. Programa proyectos propios con Python y agentes. Tú entiendes, compruebas y decides.</p>
+    </header>
+
+    <div class="workspace preparation-workspace">
+      <div class="course-view preparation-scroll">
+        <article class="preparation-content" aria-label="Descargas para preparar el equipo">
+          <img class="cf-center-hero__pattern portal-hero__pattern" src="assets/edusdk-design-system/fuentes/tramas/Trama_CFab.png" alt="" aria-hidden="true">
+          <p>Descarga la guía de instalación y el paquete de preparación de tu sistema operativo. Sigue las instrucciones de la guía antes de comenzar</p>
+          <div class="download-grid" aria-label="Descargas de preparación">
+            <a class="download-card download-card--windows" href="assets/descargas/preparar-python-windows-2027.zip" download>
+              <span class="download-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32"><path d="M5 7.5 14.5 6v9H5zM17.5 5.5 27 4v11H17.5zM5 17h9.5v9L5 24.5zM17.5 17H27v11l-9.5-1.5z"/></svg>
+              </span>
+              <span class="download-card__copy">
+                <span class="download-card__title">Windows</span>
+                <span class="download-card__description">Paquete de preparación para Windows</span>
+              </span>
+            </a>
+
+            <a class="download-card download-card--ubuntu" href="assets/descargas/Programar_2027_Instalacion_Ubuntu.zip" download>
+              <span class="download-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="20" rx="3"/><path d="m9 12 4 4-4 4M16 20h7"/></svg>
+              </span>
+              <span class="download-card__copy">
+                <span class="download-card__title">Ubuntu</span>
+                <span class="download-card__description">Paquete de preparación para Ubuntu</span>
+              </span>
+            </a>
+
+            <a class="download-card download-card--macos" href="assets/descargas/Programar_2027_Instalacion_macOS.zip" download>
+              <span class="download-card__icon download-card__icon--macos" aria-hidden="true">⌘</span>
+              <span class="download-card__copy">
+                <span class="download-card__title">macOS</span>
+                <span class="download-card__description">Paquete de preparación para macOS</span>
+              </span>
+            </a>
+
+            <a class="download-card download-card--guide" href="assets/descargas/guia-inicio-python.pdf" download>
+              <span class="download-card__icon" aria-hidden="true">
+                <img src="assets/icons/guias.svg" alt="">
+              </span>
+              <span class="download-card__copy">
+                <span class="download-card__title">Guía de instalación</span>
+                <span class="download-card__description">Descargar guía de preparación</span>
+              </span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <footer class="corp-band" aria-label="Logos institucionales">
+      <img class="corp-band__logo corp-logo--light" src="assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio.png" alt="Logos institucionales: Red CIT Circular FAB, Diputación de Cáceres, Gobierno de España Ministerio y CIT" loading="lazy">
+      <img class="corp-band__logo corp-logo--dark" src="assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio_blanco.png" alt="Logos institucionales: Red CIT Circular FAB, Diputación de Cáceres, Gobierno de España Ministerio y CIT" loading="lazy">
+      <a class="corp-band__ampliar" href="assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio_blanco.png" target="_blank" rel="noopener">Ampliar logotipos institucionales</a>
+    </footer>
+  </main>
+</body>
+</html>

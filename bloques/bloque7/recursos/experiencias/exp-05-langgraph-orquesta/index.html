@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EXP-05 · LangGraph: Python orquesta</title>
+  <link rel="stylesheet" href="../../../../../assets/edusdk-design-system/tokens/tokens.css">
+  <link rel="stylesheet" href="../../../../../assets/edusdk-design-system/tokens/semantic-tokens.css">
+  <link rel="stylesheet" href="../../../../../assets/edusdk-design-system/components/components.css">
+  <link rel="stylesheet" href="../../../../../lab-python-en-accion/style.css">
+  <style>
+    .lab-hero { overflow: hidden; position: relative; }
+    .lab-hero > :not(.lab-pattern) { position: relative; }
+    .lab-hero .lab-pattern { height: 100%; inset: 0; mix-blend-mode: multiply; object-fit: cover; opacity: 0.16; pointer-events: none; position: absolute; width: 100%; }
+    [data-theme="dark"] .lab-hero .lab-pattern { mix-blend-mode: screen; opacity: 0.10; }
+    a.lab-action--primary { color: var(--cf-color-accent-text); }
+    .langgraph-infographic { background: #fff; border: var(--cf-border-width) solid var(--cf-color-border); border-radius: var(--cf-radius-md); padding: var(--cf-space-2); }
+    .langgraph-infographic img { display: block; height: auto; max-width: 100%; width: 100%; }
+    .langgraph-infographic-actions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--cf-space-2); }
+    .langgraph-summary { color: var(--cf-color-text-muted); line-height: 1.6; }
+  </style>
+  <script src="../../../../../assets/js/theme-toggle.js" defer></script>
+</head>
+<body>
+  <main class="lab-shell">
+    <header class="cf-topbar cf-topbar--course lab-topbar">
+      <a class="lab-brand" href="../../../../../inicio.html" aria-label="Volver al curso">
+        <img src="../../../../../assets/branding/logo-circular-fab.png" alt="Circular FAB">
+        <span><b>Programar en 2027 · Bloque 7</b><span>EXP-05 · LangGraph: Python orquesta</span></span>
+      </a>
+      <nav class="cf-nav cf-nav--horizontal lab-nav" aria-label="Navegacion">
+        <a class="cf-nav__link" href="../exp-04-refactor-pruebas-diff/index.html">← Anterior</a>
+        <a class="cf-nav__link" href="../../../inicio.html">Volver al bloque 7</a>
+        <a class="cf-nav__link" href="../../../../../inicio.html">Inicio del curso</a>
+        <a class="cf-nav__link" href="../exp-06-ia-local-bajo-control/index.html">Siguiente: EXP-06 →</a>
+      </nav>
+      <button class="cf-button cf-button--secondary theme-toggle" type="button" data-theme-toggle aria-label="Activar modo oscuro" aria-pressed="false">
+        <span data-theme-icon aria-hidden="true">&#9790;</span>
+        <span data-theme-label>Modo dark</span>
+      </button>
+    </header>
+
+    <article class="lab-experience">
+      <section class="lab-hero">
+        <img class="lab-pattern" src="../../../../../assets/edusdk-design-system/fuentes/tramas/Trama_CFab.png" alt="" aria-hidden="true">
+        <div class="lab-experience__header">
+          <div>
+            <p class="lab-kicker">EXP-05 · LangGraph · Sin LLM · Sin red</p>
+            <h1 class="lab-experience__title">Grafo de flujo: Python orquesta</h1>
+          </div>
+        </div>
+        <p>Objetivo: representar y ejecutar un flujo pequeño con estado, nodos y rutas. LangGraph organiza los pasos; Python decide el flujo. Al terminar podrás explicar qué aporta el grafo y cuándo basta una secuencia normal de Python.</p>
+        <pre class="lab-code"><code>estado → nodo → condición → ruta A / ruta B → resultado observable</code></pre>
+      </section>
+
+      <section class="lab-panel" aria-labelledby="infografia-langgraph-title">
+        <h2 id="infografia-langgraph-title">Python, agentes y LangGraph</h2>
+        <div class="langgraph-infographic-actions">
+          <a class="lab-action lab-action--primary" href="../../descargas/python-agentes-langgraph.png" target="_blank" rel="noopener">Abrir a tamaño completo</a>
+          <a class="lab-action lab-action--secondary" href="../../descargas/python-agentes-langgraph.png" download>Descargar infografía</a>
+        </div>
+        <figure class="langgraph-infographic">
+          <img src="../../descargas/python-agentes-langgraph.png" width="1024" height="1536" alt="Infografía sobre Python, agentes y LangGraph: reglas explícitas en Python, un agente con herramientas y un grafo con estado, nodos y transiciones. El ejemplo de B7 muestra las rutas sin stock, pedir material y disponible, con los valores 0, 3 y 20 como ejemplos de entrada.">
+        </figure>
+        <p class="langgraph-summary"><strong>Resumen accesible:</strong> la imagen presenta tres ideas relacionadas. Python puede expresar reglas explícitas; un agente puede proponer el uso de herramientas bajo control del programa; y LangGraph puede organizar un estado, nodos y transiciones. En este proyecto de B7 el grafo funciona sin modelo de lenguaje: Python decide la ruta y LangGraph organiza la ejecución. Un nodo es una función o paso del flujo, no necesariamente un agente. Los valores 0, 3 y 20 son ejemplos de entrada de la infografía, no una lista completa de las condiciones de transición. Este proyecto no implementa un sistema multiagente ni autocorrección.</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>PREPARAR</h2>
+        <p><a class="lab-action lab-action--primary" href="../../../proyecto-b7-langgraph.zip" download>Descargar grafo de flujo</a></p>
+        <p><strong>El ZIP es plano:</strong> crea o elige una carpeta vacía, por ejemplo <code>mi-grafo-b7/</code>, y descomprímelo directamente dentro. Abre esa carpeta en VS Code y, desde VS Code, abre una terminal situada en esa carpeta. Solo hay 5 archivos:</p>
+        <pre class="lab-code"><code>mi-grafo-b7/
+├── flujo_taller.py      # estado -&gt; nodos -&gt; condición -&gt; ruta -&gt; resultado
+├── datos_demo.json      # contexto local (pieza, stock, mínimo)
+├── test_flujo_taller.py # pruebas con unittest (librería estándar)
+├── requirements.txt     # dependencias del proyecto
+└── README.md            # guía del proyecto</code></pre>
+        <p>Prepara un entorno virtual antes de ejecutar el grafo. <code>.venv</code> mantiene las dependencias de este proyecto separadas de las de otros proyectos.</p>
+        <p><strong>Windows PowerShell</strong></p>
+        <pre class="lab-code"><code>py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt</code></pre>
+        <p><strong>macOS/Linux</strong></p>
+        <pre class="lab-code"><code>python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt</code></pre>
+        <p>Si <code>.venv</code> ya existe, basta con activarlo o utilizar su intérprete. Si PowerShell bloquea la activación, no cambies la política de ejecución del sistema: instala y ejecuta directamente con:</p>
+        <pre class="lab-code"><code>.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe flujo_taller.py --demo</code></pre>
+      </section>
+
+      <section class="lab-panel">
+        <h2>VER — qué es cada cosa</h2>
+        <p>Lee <code>flujo_taller.py</code> y localiza las 4 piezas (nada de teoría larga):</p>
+        <pre class="lab-code"><code># ESTADO: el diccionario que viaja por el grafo
+# (pieza, stock, stock_minimo, decision, ruta, ...)
+# NODO: cada función que hace una tarea
+# (obtener_contexto, validar_datos, evaluar_estado, ...)
+# CONDICIÓN: decidir_siguiente(stock, minimo) elige la ruta
+# RUTAS: sin_stock / pedir_material / disponible</code></pre>
+        <p>Ejecuta y observa la ruta que toma con los datos de demostración:</p>
+        <pre class="lab-code"><code>python flujo_taller.py --demo</code></pre>
+        <p>Deberías ver <code>pedir_material</code> y la decisión <code>PEDIR_MATERIAL</code>. Explica en una frase por qué se tomó esa ruta (pista: stock 3 frente a mínimo 5).</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>SEGUIR EL FLUJO REAL</h2>
+        <p>El diccionario de <strong>estado</strong> lleva <code>pieza</code>, <code>stock</code>, <code>stock_minimo</code>, <code>ruta</code> y <code>decision</code>. Los nodos <code>obtener_contexto</code>, <code>validar_datos</code> y <code>evaluar_estado</code> lo van actualizando. La condición <code>decidir_siguiente(stock, minimo)</code> selecciona:</p>
+        <pre class="lab-code"><code>stock es None o stock &lt;= 0  → sin_stock
+stock &lt; minimo              → pedir_material
+stock &gt;= minimo             → disponible</code></pre>
+        <p>LangGraph conecta esos nodos con <code>START</code>, <code>END</code> y aristas condicionales. No inventa la decisión ni consulta un modelo: la regla está escrita en Python y el resultado observable es la ruta y su etiqueta.</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>¿LANGGRAPH O PYTHON NORMAL?</h2>
+        <p>Para este flujo corto, Python normal basta: una secuencia de llamadas y un <code>if</code> resuelven la misma necesidad con menos instalación y mantenimiento. LangGraph aporta una representación explícita cuando crecen los nodos, las transiciones o la necesidad de inspeccionar el estado; aquí se usa solo para ver esa organización, no porque sea imprescindible.</p>
+        <p>Este ejemplo es un <strong>grafo determinista</strong>: no usa LLM, claves, Ollama, red ni servicios externos. Una ampliación con IA añadiría un modelo dentro de un nodo y sus riesgos de coste, disponibilidad y validación. Un sistema multiagente requeriría varios agentes con responsabilidades y coordinación; este proyecto no lo implementa.</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>PROBAR — cambia los datos, la ruta cambia</h2>
+        <p>Sin tocar código, comprueba que la condición manda:</p>
+        <pre class="lab-code"><code>python flujo_taller.py --demo --stock 0
+python flujo_taller.py --demo --stock 20
+python -m unittest -v</code></pre>
+        <p>Anota: ¿qué ruta sale con stock 0? ¿Y con stock 20? Las pruebas de la regla pura (<code>decidir_siguiente</code>) pasan siempre, sin langgraph. La prueba del grafo completo solo pasa si langgraph está instalado; si no, queda NO_VERIFICADO — que no es un fallo.</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>MODIFICAR — tú cambias la orquestación</h2>
+        <p>Elige UNA de las dos (no las dos). Pide PLAN al agente si quieres, pero el cambio lo entiendes tú:</p>
+        <pre class="lab-code"><code>Opción A: cambia la condición en decidir_siguiente
+(p. ej. pedir material también cuando stock == minimo).
+
+Opción B: añade una ruta pequeña (p. ej. stock_alto cuando
+stock &gt;= 20, con su nodo y sus aristas).</code></pre>
+        <p>Tras tu cambio, verifica:</p>
+        <pre class="lab-code"><code>python flujo_taller.py --demo
+python -m unittest -v</code></pre>
+        <p>Si añadiste una ruta, actualiza también las pruebas de la regla pura. Si rompiste algo, el traceback te dice qué nodo falló: léelo de abajo arriba, como en B6.</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>MINI-RETO (autonomía)</h2>
+        <p>Sin pasos detallados: cambia <code>datos_demo.json</code> para forzar cada una de las 3 rutas y anota la salida <code>GRAFO → RESULTADO</code> de cada caso. No toques el grafo para esto.</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>RESULTADO OBSERVABLE</h2>
+        <p>Demuestras el concepto central en tu terminal:</p>
+        <pre class="lab-code"><code>FUENTE DE DATOS: DATOS DE DEMOSTRACION
+CONTEXTO RECIBIDO
+Pieza: Broca 5mm / Stock: 3 / Minimo: 5
+GRAFO
+obtener_contexto -&gt; validar_datos -&gt; evaluar_estado -&gt; pedir_material
+RESULTADO
+PEDIR_MATERIAL</code></pre>
+        <p>Y explicas: qué es el estado · qué hace cada nodo · por qué se tomó esa ruta · qué salida se obtiene · qué cambiaste tú y qué resultado nuevo comprobaste. Sin LLM en ningún punto: la decisión es 100% Python.</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>COMPROBAR</h2>
+        <pre class="lab-code"><code>python flujo_taller.py --demo
+python -m unittest -v</code></pre>
+        <p>Checklist de salida: ¿estado, nodos, condición y rutas identificados? ¿3 rutas probadas con datos? ¿1 modificación de orquestación hecha por ti? ¿pruebas en verde o <code>NO_VERIFICADO</code> justificado? ¿puedes explicar por qué se toma cada ruta?</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>PLAN B (sin red / si pip falla)</h2>
+        <p>Sin langgraph instalado: la regla pura se sigue probando (<code>decidir_siguiente</code> y los nodos son Python estándar). Ejecuta <code>python -m unittest -v</code>: las pruebas puras quedarán en verde y la del grafo aparecerá como <code>skipped</code> (<code>NO_VERIFICADO</code>). Dibuja el grafo con sus 3 rutas y predice la salida de cada caso.</p>
+      </section>
+
+      <section class="lab-panel">
+        <h2>CONTINUAR</h2>
+        <p>Frase de cierre: “LangGraph organiza los pasos, pero Python decide el flujo”. Siguiente: EXP-06 (una IA de verdad, bajo control determinista).</p>
+      </section>
+
+      <nav class="lab-pager" aria-label="Anterior y siguiente">
+        <a class="lab-action lab-action--secondary" href="../../../inicio.html">← Volver al bloque 7</a>
+        <a class="lab-action lab-action--secondary" href="../../../../../inicio.html">Inicio del curso</a>
+        <a class="lab-action lab-action--primary" href="../exp-06-ia-local-bajo-control/index.html">Siguiente: EXP-06 →</a>
+      </nav>
+    </article>
+  <footer class="corp-band" aria-label="Logos institucionales">
+    <img class="corp-band__logo corp-logo--light" src="../../../../../assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio.png" alt="Logos institucionales: Red CIT Circular FAB, Diputación de Cáceres, Gobierno de España Ministerio y CIT" loading="lazy">
+    <img class="corp-band__logo corp-logo--dark" src="../../../../../assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio_blanco.png" alt="Logos institucionales: Red CIT Circular FAB, Diputación de Cáceres, Gobierno de España Ministerio y CIT" loading="lazy">
+  </footer>
+  </main>
+</body>
+</html>

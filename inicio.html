@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Programar en 2027</title>
+  <link rel="stylesheet" href="assets/edusdk-design-system/tokens/tokens.css">
+  <link rel="stylesheet" href="assets/edusdk-design-system/tokens/semantic-tokens.css">
+  <link rel="stylesheet" href="assets/edusdk-design-system/components/components.css">
+  <script src="assets/js/course-home.js" defer></script>
+  <style>
+    html, body { max-width: 100%; overflow-x: hidden; }
+    body { margin: 0; background: var(--cf-color-background); color: var(--cf-color-text); font-family: var(--cf-font-body); }
+    .shell { box-sizing: border-box; display: grid; gap: var(--cf-space-5); margin: 0 auto; min-width: 0; padding: var(--cf-space-5); width: min(1180px, 100%); }
+    .cf-topbar, .course-panel { box-sizing: border-box; min-width: 0; width: 100%; }
+    .brand { align-items: center; color: inherit; display: flex; gap: var(--cf-space-2); text-decoration: none; }
+    .brand img { height: 52px; width: auto; }
+    .grid { display: grid; gap: var(--cf-space-4); grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    .card { color: inherit; display: flex; flex-direction: column; gap: var(--cf-space-3); min-height: 220px; text-decoration: none; }
+    .card h2 { font-size: 1.1rem; line-height: 1.2; margin: 0; }
+    .card p { color: var(--cf-color-text-muted); line-height: 1.45; margin: 0; }
+    [hidden] { display: none !important; }
+    .course-panel { background: var(--cf-color-surface); border: 1px solid var(--cf-color-border); border-radius: var(--cf-radius-lg); padding: var(--cf-space-5); }
+    .course-panel h2 { margin-top: 0; }
+    .course-panel p, .course-panel li { line-height: 1.6; }
+    .course-panel a:not(.cf-button), .support-links a { color: var(--cf-color-accent); }
+    .setup-actions, .support-links { display: flex; flex-wrap: wrap; gap: var(--cf-space-3); align-items: center; }
+    .course-panel a:focus-visible, .support-links a:focus-visible { outline: 3px solid var(--cf-color-accent); outline-offset: 4px; }
+    .route-grid { display: grid; gap: var(--cf-space-4); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .route-card { align-content: start; display: grid; gap: var(--cf-space-3); }
+    .route-card h2, .route-card h3 { margin: 0; }
+    .route-card p, .route-card li { line-height: 1.55; }
+    .route-card ul { margin: 0; padding-left: 1.25rem; }
+    .route-card__actions { display: flex; flex-wrap: wrap; }
+    .route-card__actions .cf-button { box-sizing: border-box; line-height: 1.35; max-width: 100%; text-align: center; }
+    .route-support { border-top: 1px solid var(--cf-color-border); grid-column: 1 / -1; padding-top: var(--cf-space-4); }
+    .route-support h3 { font-family: var(--cf-font-label); font-size: .95rem; margin: 0 0 var(--cf-space-2); }
+    .route-support p { margin: 0; }
+    .route-support .cf-button { margin-top: var(--cf-space-3); }
+    .route-card__next { border-top: 1px solid var(--cf-color-border); color: var(--cf-color-text-muted); padding-top: var(--cf-space-3); }
+    @media (max-width: 1120px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 720px) {
+      .grid, .route-grid, .project-strip { grid-template-columns: 1fr; }
+      .shell { max-width: 100vw; padding: var(--cf-space-3); width: 100vw; }
+      .brand { min-width: 0; }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/portada-piloto.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="cf-topbar cf-topbar--course">
+      <img class="course-header__pattern" src="assets/edusdk-design-system/fuentes/tramas/Trama_CFab.png" alt="" aria-hidden="true">
+      <a class="brand" href="inicio.html" aria-label="Inicio del curso">
+        <img src="assets/branding/logo-circular-fab.png" alt="Circular FAB">
+        <h1>Programar en <span class="brand-year">2027</span></h1>
+      </a>
+      <nav class="cf-nav cf-nav--horizontal" aria-label="Navegación del curso">
+        <a class="cf-nav__link is-active" href="inicio.html" aria-current="page">Inicio</a>
+        <a class="cf-nav__link" href="lab-python-en-accion/index.html">Laboratorio</a>
+      </nav>
+      <p class="course-header__purpose">Aprender haciendo + IA. Programa proyectos propios con Python y agentes. Tú entiendes, compruebas y decides.</p>
+    </header>
+
+    <div class="workspace">
+    <section class="intro-dashboard" aria-label="Empieza por lo que necesitas">
+      <aside class="paco-panel" aria-label="Paco, profesor particular de Programar en 2027">
+        <img src="assets/imagenes para Fernando 2.0/profesor.jpeg" alt="Paco, profesor particular del curso" loading="eager">
+        <div><span class="paco-panel__eyebrow">Tu apoyo durante el curso</span><h2>Hola, soy Paco</h2><p>Te ayudo a dar forma a tu proyecto y a resolver dudas.</p><a href="prepara-tu-copiloto.html">Conoce al profesor particular <span aria-hidden="true">→</span></a></div>
+      </aside>
+      <nav class="action-grid" aria-label="¿Qué quieres hacer?">
+        <a class="action-card action-card--preparar" href="preparacion.html"><span class="action-card__icon" aria-hidden="true"><img src="assets/icons/alumno.svg" alt=""></span><span class="action-card__content"><span class="action-card__number">01 · Primer paso</span><h2>Preparar mi equipo</h2><span class="action-card__link">VS Code, Git y agente <span aria-hidden="true">↗</span></span></span></a>
+        <a class="action-card action-card--recorrido" href="#recorrido"><span class="action-card__icon" aria-hidden="true"><img src="assets/icons/mapa.svg" alt=""></span><span class="action-card__content"><span class="action-card__number">02 · Empieza aquí</span><h2>Mi recorrido</h2><span class="action-card__link">Hasta Docker <span aria-hidden="true">↗</span></span></span></a>
+        <a class="action-card action-card--proyecto" href="#proyecto"><span class="action-card__icon" aria-hidden="true"><img src="assets/icons/practicas.svg" alt=""></span><span class="action-card__content"><span class="action-card__number">03 · Crea a tu ritmo</span><h2>Mi proyecto</h2><span class="action-card__link">De la idea al código <span aria-hidden="true">↗</span></span></span></a>
+        <a class="action-card action-card--aprender" href="#aprender"><span class="action-card__icon" aria-hidden="true"><img src="assets/icons/guias.svg" alt=""></span><span class="action-card__content"><span class="action-card__number">04 · Explora</span><h2>Aprender algo</h2><span class="action-card__link">Prácticas y cuadernos <span aria-hidden="true">↗</span></span></span></a>
+        <a class="action-card action-card--ia" href="#ia"><span class="action-card__icon" aria-hidden="true"><img src="assets/icons/mapa.svg" alt=""></span><span class="action-card__content"><span class="action-card__number">05 · Explora</span><h2>Mira este repo</h2><span class="action-card__link">Descubre proyectos reales y aprende de su código. <span aria-hidden="true">↗</span></span></span></a>
+      </nav>
+    </section>
+
+    <div class="view-toolbar" hidden>
+      <button class="cf-button cf-button--secondary view-toolbar__back" type="button" data-view-home>← Volver al inicio</button>
+    </div>
+
+    <div class="course-view" id="recorrido" data-course-view hidden>
+    <section class="route-grid" id="rutas" aria-label="Elige tu ruta de aprendizaje">
+      <article class="route-card">
+        <div class="route-card__heading">
+          <span class="route-card__icon" aria-hidden="true"></span>
+          <div class="route-card__title-row">
+            <h2>Recorrido práctico</h2>
+            <span class="cf-chip cf-chip--accent">Ruta A</span>
+          </div>
+        </div>
+        <p><strong>Crear proyectos con agentes de IA: construye primero; estudia cuando lo necesites.</strong></p>
+        <div class="route-card__actions">
+          <a class="cf-button cf-button--primary" href="lab-python-en-accion/index.html">Abrir recorrido práctico completo</a>
+          <a class="cf-button cf-button--secondary" href="lab-python-en-accion/recursos/experiencias/07-agentes-programacion.html">Ir al Ejercicio 1</a>
+        </div>
+      </article>
+      <article class="route-card">
+        <div class="route-card__heading">
+          <span class="route-card__icon" aria-hidden="true"></span>
+          <div class="route-card__title-row">
+            <h2>Aprendizaje de Python</h2>
+            <span class="cf-chip cf-chip--neutral">Ruta B</span>
+          </div>
+        </div>
+        <p><strong>Aprender programación con Python: estudia los fundamentos y aplícalos.</strong> Aprende Python progresivamente: estudia los fundamentos con los cuadernos y aplica cada idea en una práctica.</p>
+        <div class="route-card__actions">
+          <a class="cf-button cf-button--primary" href="bloques/bloque1/inicio.html">Empezar por B1 · Fundamentos y lógica</a>
+        </div>
+      </article>
+    </section>
+    </div>
+
+    <div class="course-view" id="proyecto" data-course-view hidden>
+      <section class="project-grid" aria-label="Mi proyecto">
+        <article class="route-card project-card project-card--setup">
+          <div class="project-card__heading">
+            <span class="project-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="m4 18 20-10 20 10-20 10z"/>
+                <path d="M12 22v9c7 6 17 6 24 0v-9"/>
+                <path d="M44 18v13"/>
+              </svg>
+            </span>
+            <h2>Prepara a tu profesor particular</h2>
+          </div>
+          <p>Antes de empezar, configura tu profesor particular con el pack del curso</p>
+          <a class="cf-button cf-button--secondary project-card__action" href="prepara-tu-copiloto.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M14 4h6v6"/>
+              <path d="m20 4-10 10"/>
+              <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/>
+            </svg>
+            <span>Abrir guía de configuración</span>
+          </a>
+        </article>
+        <article class="route-card project-card project-card--start">
+          <div class="project-card__heading">
+            <span class="project-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M8 8h24a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H19l-9 7v-7a6 6 0 0 1-6-6V14a6 6 0 0 1 4-6z"/>
+                <path d="M20 8V6a5 5 0 0 1 5-5h14a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5h-1"/>
+              </svg>
+            </span>
+            <h2>Empieza tu proyecto</h2>
+          </div>
+          <p>Copia el prompt en tu profesor particular y sigue sus instrucciones.</p>
+          <button class="cf-button cf-button--primary project-card__action" type="button" data-copy-project-prompt>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <rect x="8" y="8" width="13" height="13" rx="2"/>
+              <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
+            </svg>
+            <span>Copiar prompt</span>
+          </button>
+          <p class="project-copy-status" id="project-copy-status" role="status" aria-live="polite"></p>
+        </article>
+        <article class="route-card project-card project-card--example">
+          <div class="project-card__heading">
+            <span class="project-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M14 14h20a9 9 0 0 1 8 6l4 12a5 5 0 0 1-8 5l-8-6h-8l-8 6a5 5 0 0 1-8-5l4-12a9 9 0 0 1 8-6z"/>
+                <path d="M15 21v10M10 26h10"/>
+                <path d="M33 23h.01M38 28h.01"/>
+              </svg>
+            </span>
+            <h2>Mira un ejemplo y aplícalo a tu proyecto</h2>
+          </div>
+          <p>Descubre cómo crear y mejorar un videojuego 2D con ayuda de agentes</p>
+          <a class="cf-button cf-button--secondary project-card__action" href="lab-python-en-accion/recursos/experiencias/08-de-lo-aprendido-a-tu-proyecto.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M14 4h6v6"/>
+              <path d="m20 4-10 10"/>
+              <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/>
+            </svg>
+            <span>De lo aprendido a tu proyecto</span>
+          </a>
+        </article>
+      </section>
+    <script>
+      (() => {
+        const promptProyecto = `Quiero empezar un proyecto personal. Hazme cinco preguntas sencillas y conversacionales, una por una. Espera mi respuesta antes de continuar, aprovecha la información que ya conoces y no repitas preguntas ni exijas conocimientos técnicos. Adapta las preguntas a mi nivel y cubre estos temas:
+
+1. Qué quiero construir.
+2. Para quién es y qué problema resuelve.
+3. Qué debe hacer la primera versión mínima.
+4. Qué recursos tengo o quiero utilizar y qué tecnologías prefiero, si lo sé.
+5. Qué experiencia tengo y cómo quiero empezar.
+
+Después de mis respuestas, presenta una propuesta mínima y viable: objetivo, alcance inicial, recursos o tecnologías recomendados y cómo comprobar el resultado. Distingue lo que te he pedido de tus recomendaciones.
+
+Espera mi aprobación explícita de la propuesta antes de preparar archivos o generar el ZIP inicial. Si apruebo y tienes capacidad para crear archivos y ofrecer un ZIP, prepara un kit sencillo para abrir en VS Code con README.md, AGENTS.md, contexto, la primera microfase, código mínimo ejecutable y pruebas pertinentes. Comprueba el contenido y las pruebas disponibles antes de afirmar que están verificados.
+
+Si no puedes crear archivos o generar el ZIP, explícalo y proporciona los materiales necesarios por otra vía. No afirmes que has creado archivos, ejecutado pruebas o generado un ZIP si no es cierto.`;
+        const botonCopiar = document.querySelector('#proyecto [data-copy-project-prompt]');
+        const estadoCopia = document.getElementById('project-copy-status');
+
+        botonCopiar.addEventListener('click', async () => {
+          try {
+            if (!navigator.clipboard || !navigator.clipboard.writeText) {
+              throw new Error('La API del portapapeles no está disponible.');
+            }
+            await navigator.clipboard.writeText(promptProyecto);
+            estadoCopia.textContent = 'Prompt copiado.';
+          } catch (error) {
+            console.error('No se pudo copiar el prompt.', error);
+            estadoCopia.textContent = 'No se pudo copiar. Comprueba los permisos del portapapeles e inténtalo de nuevo.';
+          }
+        });
+      })();
+    </script>
+    </div>
+
+    <div class="course-view" id="aprender" data-course-view hidden>
+      <section class="course-panel resource-panel learning-panel">
+        <div class="learning-grid">
+          <a class="learning-card learning-card--blocks" href="#bloques">
+            <span class="learning-card__icon" aria-hidden="true"></span>
+            <span class="learning-card__content">
+              <h3>Bloques B1–B7 y cuadernos</h3>
+              <p>Repasa los fundamentos y consulta tus cuadernos</p>
+            </span>
+            <span class="learning-card__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="learning-card learning-card--practices" href="lab-python-en-accion/recursos/index.html">
+            <span class="learning-card__icon" aria-hidden="true"></span>
+            <span class="learning-card__content">
+              <h3>Catálogo de prácticas</h3>
+              <p>Explora experiencias, recursos y descargas</p>
+            </span>
+            <span class="learning-card__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="learning-card learning-card--projects" href="bloques/bloque3/inicio.html">
+            <span class="learning-card__icon" aria-hidden="true"></span>
+            <span class="learning-card__content">
+              <h3>Proyectos aplicados</h3>
+              <p>Continúa aprendiendo con proyectos prácticos</p>
+            </span>
+            <span class="learning-card__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="learning-card learning-card--extensions" href="lab-python-en-accion/index.html#extras-title">
+            <span class="learning-card__icon" aria-hidden="true"></span>
+            <span class="learning-card__content">
+              <h3>Ampliaciones voluntarias</h3>
+              <p>Descubre nuevas herramientas y sigue explorando</p>
+            </span>
+            <span class="learning-card__arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+    <section class="course-panel" id="bloques" aria-labelledby="bloques-title" hidden>
+      <h2 id="bloques-title" tabindex="-1">Teoría · Los siete bloques</h2>
+      <div class="grid">
+      <a class="card cf-card cf-card--interactive" href="bloques/bloque1/inicio.html"><span class="cf-chip cf-chip--success">Bloque 1</span><h2>Fundamentos y lógica</h2><p>Print, variables, tipos, operadores, condicionales y bucles.</p></a>
+      <a class="card cf-card cf-card--interactive" href="bloques/bloque2/inicio.html"><span class="cf-chip cf-chip--success">Bloque 2</span><h2>Estructuras de datos</h2><p>Cadenas, listas, tuplas, conjuntos, diccionarios y comprehensions.</p></a>
+      <a class="card cf-card cf-card--interactive" href="bloques/bloque3/inicio.html"><span class="cf-chip cf-chip--success">Bloque 3</span><h2>Funciones y modularidad</h2><p>Def, parametros, return, scope, try/except, archivos y modulos.</p></a>
+      <a class="card cf-card cf-card--interactive" href="bloques/bloque4/inicio.html"><span class="cf-chip cf-chip--success">Bloque 4</span><h2>Programación orientada a objetos</h2><p>Clases, objetos, metodos, composicion, herencia y polimorfismo.</p></a>
+      <a class="card cf-card cf-card--interactive" href="bloques/bloque5/inicio.html"><span class="cf-chip cf-chip--success">Bloque 5</span><h2>Python aplicado y librerías</h2><p>NumPy · Pandas · Playwright · ReportLab · informes PDF.</p></a>
+      <a class="card cf-card cf-card--interactive" href="bloques/bloque6/inicio.html"><span class="cf-chip cf-chip--success">Bloque 6</span><h2>Entorno profesional</h2><p>Script, VS Code, venv, Git local, debugger e IA controlada.</p></a>
+      <a class="card cf-card cf-card--interactive" href="bloques/bloque7/inicio.html"><span class="cf-chip cf-chip--success">Bloque 7</span><h2>Python + IA</h2><p>Programacion asistida critica, cierre del proyecto del curso, defensa y LangGraph.</p></a>
+      </div>
+    </section>
+    </div>
+
+    <div class="course-view" id="ia" data-course-view hidden>
+      <section class="course-panel resource-panel repo-panel" id="trabajar-ia" aria-label="Repositorios para explorar">
+        <div class="repo-grid">
+          <article class="repo-card repo-card--python">
+            <span class="repo-card__category">Python · recursos</span>
+            <h3>Awesome Python</h3>
+            <dl class="repo-card__details">
+              <div>
+                <dt>Qué hace</dt>
+                <dd>Reúne bibliotecas, herramientas y recursos de Python en categorías.</dd>
+              </div>
+              <div>
+                <dt>Por qué explorarlo</dt>
+                <dd>Ayuda a descubrir opciones para resolver una necesidad concreta.</dd>
+              </div>
+              <div>
+                <dt>Qué aprender de su código</dt>
+                <dd>No es una aplicación: muestra cómo organizar una guía de herramientas en Markdown.</dd>
+              </div>
+            </dl>
+            <a class="repo-card__link" href="https://github.com/vinta/awesome-python" target="_blank" rel="noopener noreferrer">Ver repositorio original <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="repo-card repo-card--madre">
+            <span class="repo-card__category">Agentes de programación</span>
+            <h3>MADRE</h3>
+            <dl class="repo-card__details">
+              <div>
+                <dt>Qué hace</dt>
+                <dd>Reúne varios agentes de programación en un chat local con memoria compartida.</dd>
+              </div>
+              <div>
+                <dt>Por qué explorarlo</dt>
+                <dd>Permite observar cómo coordina herramientas distintas y mantiene la lectura como opción predeterminada.</dd>
+              </div>
+              <div>
+                <dt>Qué aprender de su código</dt>
+                <dd>Recorre <code>src/</code>, <code>docs/</code> y <code>test/</code> para ver cómo separa implementación, guía y pruebas.</dd>
+              </div>
+            </dl>
+            <a class="repo-card__link" href="https://github.com/jossuealcacao-exe/madre" target="_blank" rel="noopener noreferrer">Ver repositorio original <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="repo-card repo-card--slop">
+            <span class="repo-card__category">Gráficos 3D web</span>
+            <h3>Slop New York</h3>
+            <dl class="repo-card__details">
+              <div>
+                <dt>Qué hace</dt>
+                <dd>Simula Nueva York en 3D, con recorridos a pie, en coche, bicicleta o helicóptero.</dd>
+              </div>
+              <div>
+                <dt>Por qué explorarlo</dt>
+                <dd>Muestra una experiencia web interactiva construida sobre una ciudad y sus datos geográficos.</dd>
+              </div>
+              <div>
+                <dt>Qué aprender de su código</dt>
+                <dd>Observa cómo organiza <code>css/</code>, <code>js/</code> y <code>tests/</code>, y cómo emplea Three.js y WebGPU.</dd>
+              </div>
+            </dl>
+            <a class="repo-card__link" href="https://github.com/mrdoob/slop-newyork" target="_blank" rel="noopener noreferrer">Ver repositorio original <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="repo-card repo-card--build">
+            <span class="repo-card__category">Aprende construyendo</span>
+            <h3>Build Your Own X</h3>
+            <dl class="repo-card__details">
+              <div>
+                <dt>Qué hace</dt>
+                <dd>Reúne tutoriales para construir desde cero tecnologías como videojuegos, bases de datos y servidores.</dd>
+              </div>
+              <div>
+                <dt>Por qué explorarlo</dt>
+                <dd>Muestra cómo desarrollar programas complejos a partir de pequeñas piezas y pasos progresivos.</dd>
+              </div>
+              <div>
+                <dt>Qué aprender de su código</dt>
+                <dd>Explora el <code>README.md</code>, sus categorías y los tutoriales enlazados para descubrir cómo se construye un proyecto paso a paso.</dd>
+              </div>
+            </dl>
+            <a class="repo-card__link" href="https://github.com/codecrafters-io/build-your-own-x" target="_blank" rel="noopener noreferrer">Ver repositorio original <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="repo-card repo-card--apis">
+            <span class="repo-card__category">Datos y servicios web</span>
+            <h3>Public APIs</h3>
+            <dl class="repo-card__details">
+              <div>
+                <dt>Qué hace</dt>
+                <dd>Recopila APIs públicas de ámbitos como meteorología, ciencia, cultura y entretenimiento.</dd>
+              </div>
+              <div>
+                <dt>Por qué explorarlo</dt>
+                <dd>Permite descubrir servicios externos que podemos integrar en nuestras propias aplicaciones.</dd>
+              </div>
+              <div>
+                <dt>Qué aprender de su código</dt>
+                <dd>Consulta el <code>README.md</code>, elige una API y estudia cómo realizar peticiones HTTP y utilizar respuestas JSON desde Python.</dd>
+              </div>
+            </dl>
+            <a class="repo-card__link" href="https://github.com/public-apis/public-apis" target="_blank" rel="noopener noreferrer">Ver repositorio original <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="repo-card repo-card--ollama">
+            <span class="repo-card__category">Inteligencia artificial local</span>
+            <h3>Ollama</h3>
+            <dl class="repo-card__details">
+              <div>
+                <dt>Qué hace</dt>
+                <dd>Permite ejecutar modelos de inteligencia artificial en un ordenador y conectarlos con aplicaciones.</dd>
+              </div>
+              <div>
+                <dt>Por qué explorarlo</dt>
+                <dd>Es una herramienta utilizada en el curso y permite comprender las posibilidades de ejecutar IA localmente.</dd>
+              </div>
+              <div>
+                <dt>Qué aprender de su código</dt>
+                <dd>Explora el <code>README.md</code>, la documentación de la API y los ejemplos para conectar un programa Python con un modelo local.</dd>
+              </div>
+            </dl>
+            <a class="repo-card__link" href="https://github.com/ollama/ollama" target="_blank" rel="noopener noreferrer">Ver repositorio original <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <noscript><style>
+      html, body { height: auto; }
+      body { min-height: 100vh; overflow: visible; }
+      .shell { height: auto; min-height: 100vh; overflow: visible; grid-template-areas: none; grid-template-rows: none; }
+      .cf-topbar--course, .workspace, .corp-band { grid-area: auto; }
+      .workspace { display: block; }
+      .intro-dashboard, .course-view { grid-area: auto; height: auto; overflow: visible; }
+      .course-view[hidden] { display: grid !important; }
+      .course-panel[hidden] { display: block !important; }
+    </style><p>JavaScript está desactivado: las secciones se muestran a continuación de los accesos.</p></noscript>
+    </div>
+
+    <footer class="corp-band" aria-label="Logos institucionales">
+      <img class="corp-band__logo corp-logo--dark" src="assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio_blanco.png" alt="Logos institucionales: Red CIT Circular FAB, Diputación de Cáceres, Gobierno de España Ministerio y CIT" loading="lazy">
+      <a class="corp-band__ampliar" href="assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio_blanco.png" target="_blank" rel="noopener">Ampliar logotipos institucionales</a>
+    </footer>
+  </main>
+</body>
+</html>
+

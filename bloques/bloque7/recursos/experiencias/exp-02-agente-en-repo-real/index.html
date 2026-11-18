@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EXP-02 · Preparar un cambio</title>
+  <link rel="stylesheet" href="../../../../../assets/edusdk-design-system/tokens/tokens.css">
+  <link rel="stylesheet" href="../../../../../assets/edusdk-design-system/tokens/semantic-tokens.css">
+  <link rel="stylesheet" href="../../../../../assets/edusdk-design-system/components/components.css">
+  <link rel="stylesheet" href="../../../../../lab-python-en-accion/style.css">
+  <style>
+    .lab-hero { overflow: hidden; position: relative; }
+    .lab-hero > :not(.lab-pattern) { position: relative; }
+    .lab-hero .lab-pattern { height: 100%; inset: 0; mix-blend-mode: multiply; object-fit: cover; opacity: .16; pointer-events: none; position: absolute; width: 100%; }
+    [data-theme="dark"] .lab-hero .lab-pattern { mix-blend-mode: screen; opacity: .1; }
+    a.lab-action--primary { background: var(--cf-color-accent-hover); color: var(--cf-color-accent-text); }
+    [data-theme="dark"] a.lab-action--primary { background: var(--cf-color-accent); color: var(--cf-color-accent-text); }
+    .exp-note { border-left: .3rem solid var(--cf-color-accent); }
+    .exp-grid { display: grid; gap: var(--cf-space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+    .exp-card { background: var(--cf-color-surface-muted); border: var(--cf-border-width) solid var(--cf-color-border); border-radius: var(--cf-radius-sm); display: grid; gap: var(--cf-space-2); padding: var(--cf-space-3); }
+    .exp-card h3 { color: var(--cf-color-text); font-family: var(--cf-font-label); font-size: .9rem; margin: 0; }
+    .exp-card p { margin: 0; }
+    .exp-prompt { border-left: .3rem solid var(--cf-color-accent); }
+    .exp-prompt .lab-code { margin: 0; }
+    .exp-step h2 { margin-bottom: .2rem; }
+    .lab-shell, .lab-experience, .lab-panel, .lab-hero, .lab-topbar { min-width: 0; max-width: 100%; width: 100%; }
+    .lab-hero > * { min-width: 0; max-width: 100%; }
+    @media (max-width: 560px) { body { overflow-x: hidden; } .lab-topbar { display: grid; } .lab-nav { display: grid; grid-template-columns: 1fr; } .lab-nav .cf-nav__link { width: 100%; } .lab-hero h1, .lab-hero p, .lab-hero .lab-kicker { max-width: 100%; overflow-wrap: anywhere; width: 100%; } .lab-experience__title { overflow-wrap: anywhere; } }
+  </style>
+  <script src="../../../../../assets/js/theme-toggle.js" defer></script>
+</head>
+<body>
+  <main class="lab-shell">
+    <header class="cf-topbar cf-topbar--course lab-topbar">
+      <a class="lab-brand" href="../../../../../inicio.html" aria-label="Volver al curso"><img src="../../../../../assets/branding/logo-circular-fab.png" alt="Circular FAB"><span><b>Circular FAB · Programar en 2027</b><span>EXP-02 · Preparar un cambio</span></span></a>
+      <nav class="cf-nav cf-nav--horizontal lab-nav" aria-label="Navegación"><a class="cf-nav__link" href="../exp-01-del-prompt-al-harness/index.html">← EXP-01</a><a class="cf-nav__link" href="../../../inicio.html">B7</a><a class="cf-nav__link" href="../../../../../inicio.html">Curso</a><a class="cf-nav__link" href="../exp-03-depura-con-agente/index.html">EXP-03 →</a></nav>
+      <button class="cf-button cf-button--secondary theme-toggle" type="button" data-theme-toggle aria-label="Activar modo oscuro" aria-pressed="false"><span data-theme-icon aria-hidden="true">&#9790;</span><span data-theme-label>Modo dark</span></button>
+    </header>
+    <article class="lab-experience">
+      <section class="lab-hero"><img class="lab-pattern" src="../../../../../assets/edusdk-design-system/fuentes/tramas/Trama_CFab.png" alt="" aria-hidden="true"><p class="lab-kicker">EXP-02 · 60-90 min · Registro de participantes</p><h1 class="lab-experience__title">Preparar un cambio</h1><p>Aprende a entender un problema, aclarar objetivo y límites, preparar criterios de aceptación y proponer un plan antes de modificar código.</p><p>El agente ayuda a preparar el trabajo; tú revisas la ficha, autorizas el alcance, inspeccionas el diff y decides.</p></section>
+      <section class="lab-panel exp-note"><h2>Antes de empezar</h2><p>En EXP-01 has trabajado con el inventario del taller y su arnés de bolsillo. Ahora cambiamos de proyecto: vamos a corregir un registro de participantes con ayuda de un agente.</p><p>Conserva la carpeta del inventario. Para esta experiencia abre una carpeta nueva.</p></section>
+      <section class="lab-panel exp-step"><h2>1. PREPARAR · descarga y abre el proyecto</h2><p><a class="lab-action lab-action--primary" href="../../../proyecto-b7-agente-real.zip" download>Descargar el registro de participantes · EXP-02–04</a></p><ol><li>Extrae el ZIP completo en una carpeta nueva, conservando <code>.agents/</code>.</li><li>Abre esa carpeta mediante <strong>Archivo &gt; Abrir carpeta</strong> en VS Code.</li><li>Comprueba que contiene <code>app.py</code>, <code>participantes.py</code>, <code>test_participantes.py</code>, <code>README.md</code> y <code>AGENTS.md</code>, además de la skill.</li><li>Abre una terminal allí y continúa con la ejecución inicial.</li></ol><p>Esta misma carpeta se reutiliza en EXP-03 y EXP-04. Antes de proponer <code>git init</code>, comprueba si ya existe un repositorio; Git es un punto de control útil, pero no un requisito para acceder ni practicar.</p></section>
+      <section class="lab-panel exp-step"><h2>2. OBSERVAR · ejecuta el fallo real</h2><p>En la terminal abierta en esa carpeta, ejecuta <code>python app.py</code>. Introduce <code>Nombre: Luis</code> y <code>Edad: -15</code>. La salida inicial es <code>Participante registrado: Luis (-15 años)</code>. Todavía no está corregido.</p></section>
+      <section class="lab-panel exp-step"><h2>3. PREPARAR EL CAMBIO CON EL AGENTE</h2><p>El agente lee las instrucciones, el README y los archivos Python; después prepara objetivo, evidencia, alcance, criterios y plan, y se detiene antes de editar.</p><div class="exp-prompt lab-panel"><h3>Petición inicial</h3><pre class="lab-code"><code>Quiero corregir el registro de participantes porque acepta edades negativas. Ayúdame a preparar el cambio antes de tocar código.</code></pre></div><p>Usa la skill incluida en <code>.agents/skills/preparar-cambio/SKILL.md</code> o invócala con <code>$preparar-cambio</code> si tu instalación reconoce esa sintaxis.</p></section>
+      <section class="lab-panel exp-step"><h2>4. REVISAR Y AUTORIZAR</h2><div class="exp-grid"><div class="exp-card"><h3>Objetivo</h3><p>Rechazar edades fuera de 0–120.</p></div><div class="exp-card"><h3>Alcance</h3><p>Si el plan lo confirma, limitar la corrección a <code>participantes.py</code>.</p></div><div class="exp-card"><h3>Aceptación</h3><p>-15 devuelve el error esperado y una edad válida se registra.</p></div><div class="exp-card"><h3>Comprobaciones</h3><p>Prueba manual, tests, estado y diff; marca lo no ejecutado como <code>NO_VERIFICADO</code>.</p></div></div><p>Autoriza solo después de revisar la ficha y el plan:</p><pre class="lab-code"><code>He revisado la ficha y el plan. Autorizo únicamente el alcance descrito: corregir la validación de edad en participantes.py, conservar app.py y las pruebas, y no añadir dependencias. Aplica el plan y después informa de lo comprobado y lo pendiente.</code></pre></section>
+      <section class="lab-panel exp-step"><h2>5. COMPROBAR Y DECIDIR</h2><p>Después de la autorización, comprueba <code>git status</code>, <code>git diff</code>, <code>python app.py</code> y <code>python -m unittest -v</code>.</p><p><code>unittest</code> forma parte de Python. Un fallo del detector de pruebas del editor no demuestra que las pruebas no existan. Si no hay Git, no lo inicialices automáticamente ni finjas disponer de <code>git diff</code>: compara antes/después si conservaste el original y declara la limitación si no es posible.</p><p>Después informa del archivo modificado, las líneas cambiadas, las comprobaciones y sus resultados, y lo que siga sin verificarse. ACEPTA, AJUSTA o DESCARTA según la evidencia.</p></section>
+      <section class="lab-panel exp-step"><h2>6. PEQUEÑA AMPLIACIÓN · edad = 120</h2><p>Como cambio separado, puedes autorizar únicamente una prueba para confirmar que <code>edad = 120</code> es válida. No mezcles este cambio con la corrección de <code>participantes.py</code>.</p></section>
+      <section class="lab-panel exp-step"><h2>7. GUARDAR Y CONTINUAR</h2><p>Conserva la versión validada siguiendo el procedimiento autorizado. Continúa a <a href="../exp-03-depura-con-agente/index.html">EXP-03</a> con esta misma carpeta.</p></section>
+      <section class="lab-panel exp-step"><h2>8. LLEVAR LA SKILL A OTRO PROYECTO</h2><p>La skill independiente es opcional para otros proyectos: el ZIP del registro ya la incluye y no la necesitas para empezar EXP-02.</p><p><a class="lab-action lab-action--secondary" href="../../descargas/preparar-cambio-codex.zip" download>Descargar la skill independiente · Preparar un cambio</a></p><p>Extrae el ZIP en otro proyecto conservando <code>.agents/skills/preparar-cambio/SKILL.md</code>; si ya existe una skill con ese nombre, compara ambas antes de reemplazarla.</p></section>
+      <p class="lab-meta"><a href="../../como-se-conectan-las-herramientas.html">Cómo se conectan las herramientas</a></p>
+      <nav class="lab-pager" aria-label="Anterior y siguiente"><a class="lab-action lab-action--secondary" href="../exp-01-del-prompt-al-harness/index.html">← EXP-01</a><a class="lab-action lab-action--primary" href="../exp-03-depura-con-agente/index.html">Siguiente: EXP-03 →</a></nav>
+    </article>
+    <footer class="corp-band" aria-label="Logos institucionales"><img class="corp-band__logo corp-logo--light" src="../../../../../assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio.png" alt="Logos institucionales" loading="lazy"><img class="corp-band__logo corp-logo--dark" src="../../../../../assets/edusdk-design-system/fuentes/logos/Logos_CFAB_2026_con-Ministerio_blanco.png" alt="Logos institucionales" loading="lazy"></footer>
+  </main>
+</body>
+</html>
